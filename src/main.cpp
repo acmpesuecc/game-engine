@@ -24,7 +24,7 @@ int main() {
         std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         return -1;
     }
-    SDL_Renderer *mainRenderer{SDL_CreateRenderer(mainWindow, 0)};
+    SDL_Renderer *mainRenderer{SDL_CreateRenderer(mainWindow, NULL)};
     if (mainRenderer == nullptr) {
         std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError()
                   << std::endl;
@@ -32,6 +32,7 @@ int main() {
         SDL_Quit();
         return -1;
     }
+    /* Currently unused
     SDL_Texture *mainTexture{SDL_CreateTexture(
         mainRenderer, SDL_PIXELFORMAT_ARGB4444, SDL_TEXTUREACCESS_STATIC,
         SCREEN_WIDTH, SCREEN_HEIGHT)};
@@ -41,7 +42,7 @@ int main() {
         SDL_DestroyWindow(mainWindow);
         SDL_Quit();
         return -1;
-    }
+    } */
     SDL_Event event;
     bool quit{false};
     while (!quit) {
@@ -55,7 +56,7 @@ int main() {
         SDL_RenderClear(mainRenderer);
         SDL_RenderPresent(mainRenderer);
     }
-    SDL_DestroyTexture(mainTexture);
+    // SDL_DestroyTexture(mainTexture);
     SDL_DestroyRenderer(mainRenderer);
     SDL_DestroyWindow(mainWindow);
     SDL_Quit();
