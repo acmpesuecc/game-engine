@@ -52,7 +52,8 @@ int main() {
                 quit = true;
             }
         }
-        SDL_SetRenderDrawColor(mainRenderer, COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_ALPHA);
+        SDL_SetRenderDrawColor(mainRenderer, COLOR_RED, COLOR_GREEN, COLOR_BLUE,
+                               COLOR_ALPHA);
         SDL_RenderClear(mainRenderer);
         SDL_RenderPresent(mainRenderer);
     }
