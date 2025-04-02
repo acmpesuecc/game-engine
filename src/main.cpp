@@ -6,6 +6,10 @@
 
 const int SCREEN_WIDTH = 1000;
 const int SCREEN_HEIGHT = 800;
+const int COLOR_RED = 255;
+const int COLOR_GREEN = 0;
+const int COLOR_BLUE = 0;
+const int COLOR_ALPHA = 128;
 
 int main() {
     bool init{SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)};
@@ -47,7 +51,7 @@ int main() {
                 quit = true;
             }
         }
-        SDL_SetRenderDrawColor(mainRenderer, 255, 0, 0, 128);
+        SDL_SetRenderDrawColor(mainRenderer, COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_ALPHA);
         SDL_RenderClear(mainRenderer);
         SDL_RenderPresent(mainRenderer);
     }
