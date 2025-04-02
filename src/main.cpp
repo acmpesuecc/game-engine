@@ -1,8 +1,8 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_blendmode.h>
 #include <SDL3/SDL_events.h>
+#include <SDL3/SDL_log.h>
 #include <SDL3/SDL_render.h>
-#include <iostream>
 
 const int SCREEN_WIDTH = 1000;
 const int SCREEN_HEIGHT = 800;
@@ -14,20 +14,22 @@ const int COLOR_ALPHA = 128;
 int main() {
     bool init{SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)};
     if (!init) {
-        std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
+        SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "SDL_Init Error: %s\n",
+                        SDL_GetError());
         return -1;
     }
     SDL_Window *mainWindow{
         SDL_CreateWindow("SDL3 Window", SCREEN_WIDTH, SCREEN_HEIGHT,
                          SDL_WINDOW_RESIZABLE | SDL_WINDOW_TRANSPARENT)};
     if (mainWindow == nullptr) {
-        std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+        SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "SDL_CreateWindow Error: %s\n",
+                        SDL_GetError());
         return -1;
     }
     SDL_Renderer *mainRenderer{SDL_CreateRenderer(mainWindow, NULL)};
     if (mainRenderer == nullptr) {
-        std::cerr << "SDL_CreateRenderer Error: " << SDL_GetError()
-                  << std::endl;
+        SDL_LogCritical(SDL_LOG_CATEGORY_ERROR,
+                        "SDL_CreateRenderer Error: %s\n", SDL_GetError());
         SDL_DestroyWindow(mainWindow);
         SDL_Quit();
         return -1;
@@ -37,7 +39,8 @@ int main() {
         mainRenderer, SDL_PIXELFORMAT_ARGB4444, SDL_TEXTUREACCESS_STATIC,
         SCREEN_WIDTH, SCREEN_HEIGHT)};
     if (mainTexture == nullptr) {
-        std::cerr << "SDL_CreateTexture Error: " << SDL_GetError() << std::endl;
+        SDL_LogCritical(SDL_LOG_CATEGORY_ERROR,
+                        "SDL_CreateTexture Error: %s\n", SDL_GetError());
         SDL_DestroyRenderer(mainRenderer);
         SDL_DestroyWindow(mainWindow);
         SDL_Quit();
