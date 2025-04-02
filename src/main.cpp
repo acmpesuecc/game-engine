@@ -33,7 +33,7 @@ int main() {
         return -1;
     }
     SDL_Texture *mainTexture{SDL_CreateTexture(
-        mainRenderer, SDL_PIXELFORMAT_ARGB4444, SDL_TEXTUREACCESS_STREAMING,
+        mainRenderer, SDL_PIXELFORMAT_ARGB4444, SDL_TEXTUREACCESS_STATIC,
         SCREEN_WIDTH, SCREEN_HEIGHT)};
     if (mainTexture == nullptr) {
         std::cerr << "SDL_CreateTexture Error: " << SDL_GetError() << std::endl;
