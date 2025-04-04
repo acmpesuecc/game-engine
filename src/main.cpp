@@ -65,8 +65,8 @@ int main() {
                 SDL_Log("Key was released: %c", event.key.key);
             }
             else if (event.type == SDL_EVENT_MOUSE_WHEEL) {
-				SDL_Log("Mouse wheel scrolled: %.0f", event.wheel.y);
-			}
+		SDL_Log("Mouse wheel scrolled: %.0f", event.wheel.y);
+	    }
             else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
                 SDL_Log("Mouse button pressed");
             }
