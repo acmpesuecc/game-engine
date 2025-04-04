@@ -54,6 +54,25 @@ int main() {
                 event.type == SDL_EVENT_TERMINATING) {
                 quit = true;
             }
+            else if (event.type == SDL_EVENT_WINDOW_RESIZED) {
+                SDL_Log("Window resized to %d x %d", event.window.data1,
+                    event.window.data2);
+            }
+            else if (event.type == SDL_EVENT_KEY_DOWN) {
+                SDL_Log("Key pressed: %d", event.key.key);
+            }
+            else if (event.type == SDL_EVENT_KEY_UP) {
+                SDL_Log("Key was released: %d", event.key.key);
+            }
+            else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+                SDL_Log("Mouse button pressed");
+            }
+            else if (event.type == SDL_EVENT_MOUSE_BUTTON_UP) {
+                SDL_Log("Mouse button released");
+            }
+            else if (event.type == SDL_EVENT_MOUSE_MOTION) {
+                SDL_Log("Mouse moved to: (%.0f, %.0f)", event.motion.x, event.motion.y);
+            }
         }
         SDL_SetRenderDrawColor(mainRenderer, COLOR_RED, COLOR_GREEN, COLOR_BLUE,
                                COLOR_ALPHA);
