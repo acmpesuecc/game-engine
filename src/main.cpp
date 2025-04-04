@@ -59,10 +59,10 @@ int main() {
                     event.window.data2);
             }
             else if (event.type == SDL_EVENT_KEY_DOWN) {
-                SDL_Log("Key pressed: %d", event.key.key);
+                SDL_Log("Key pressed: %c", event.key.key);
             }
             else if (event.type == SDL_EVENT_KEY_UP) {
-                SDL_Log("Key was released: %d", event.key.key);
+                SDL_Log("Key was released: %c", event.key.key);
             }
             else if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
                 SDL_Log("Mouse button pressed");
