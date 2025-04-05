@@ -1,8 +1,5 @@
 #include <SDL3/SDL.h>
-#include <SDL3/SDL_blendmode.h>
-#include <SDL3/SDL_events.h>
-#include <SDL3/SDL_log.h>
-#include <SDL3/SDL_render.h>
+#include <SDL3/SDL_main.h>
 
 const int SCREEN_WIDTH = 1000;
 const int SCREEN_HEIGHT = 800;
