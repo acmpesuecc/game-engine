@@ -8,58 +8,74 @@ const int COLOR_GREEN = 0;
 const int COLOR_BLUE = 0;
 const int COLOR_ALPHA = 128;
 
-int main() {
+struct AppState {
+    SDL_Window *mainWindow;
+    SDL_Renderer *mainRenderer;
+    // Textures and other subsystems can be added at a later stage
+    SDL_AppResult appResult = SDL_APP_CONTINUE;
+};
+
+// A simple helper function that logs that a critical failure happens and
+// returns an app failure.
+SDL_AppResult SDL_Failure(const char *fmt) {
+    SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "%s: %s\n", fmt, SDL_GetError());
+    return SDL_APP_FAILURE;
+}
+
+// Initialises subsystems and initialises appState to be used by all other main functions.
+SDL_AppResult SDL_AppInit(void **appState, int argc, char *argv[]) {
+    AppState *state{new AppState{
+        .mainWindow = NULL,
+        .mainRenderer =
+            NULL}}; // This only is useful this way if we are initialising
+                    // subsystems using pointers, which isn't very common. We
+                    // can instead initialise the state after all subsystems are
+                    // initialised, but this depends on which subsystems we are
+                    // initialising.
+    SDL_SetAppMetadata("GameEngine", "0.0.1",
+                       "org.acm.pesuecc.aiep.game-engine");
     bool init{SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)};
     if (!init) {
-        SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "SDL_Init Error: %s\n",
-                        SDL_GetError());
-        return -1;
+        return SDL_Failure("Error initialising SDL3");
     }
-    SDL_Window *mainWindow{
-        SDL_CreateWindow("SDL3 Window", SCREEN_WIDTH, SCREEN_HEIGHT,
-                         SDL_WINDOW_RESIZABLE | SDL_WINDOW_TRANSPARENT)};
-    if (mainWindow == nullptr) {
-        SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "SDL_CreateWindow Error: %s\n",
-                        SDL_GetError());
-        return -1;
+    init = SDL_CreateWindowAndRenderer(
+        "GameEngine", SCREEN_WIDTH, SCREEN_HEIGHT,
+        SDL_WINDOW_RESIZABLE | SDL_WINDOW_TRANSPARENT, &(state->mainWindow),
+        &(state->mainRenderer));
+    if (!init) {
+        return SDL_Failure("Error creating Window and Renderer");
     }
-    SDL_Renderer *mainRenderer{SDL_CreateRenderer(mainWindow, NULL)};
-    if (mainRenderer == nullptr) {
-        SDL_LogCritical(SDL_LOG_CATEGORY_ERROR,
-                        "SDL_CreateRenderer Error: %s\n", SDL_GetError());
-        SDL_DestroyWindow(mainWindow);
-        SDL_Quit();
-        return -1;
+    *appState = state;
+    return SDL_APP_CONTINUE;
+}
+
+// The event handling function called by SDL.
+// TODO: Try and make a genericsed function that is called from here to allow
+//       custom event handling to be added by a user.
+SDL_AppResult SDL_AppEvent(void *appState, SDL_Event *event) {
+    AppState *state = static_cast<AppState *>(appState);
+    if (event->type == SDL_EVENT_QUIT || event->type == SDL_EVENT_TERMINATING) {
+        state->appResult = SDL_APP_SUCCESS;
     }
-    /* Currently unused
-    SDL_Texture *mainTexture{SDL_CreateTexture(
-        mainRenderer, SDL_PIXELFORMAT_ARGB4444, SDL_TEXTUREACCESS_STATIC,
-        SCREEN_WIDTH, SCREEN_HEIGHT)};
-    if (mainTexture == nullptr) {
-        SDL_LogCritical(SDL_LOG_CATEGORY_ERROR,
-                        "SDL_CreateTexture Error: %s\n", SDL_GetError());
-        SDL_DestroyRenderer(mainRenderer);
-        SDL_DestroyWindow(mainWindow);
-        SDL_Quit();
-        return -1;
-    } */
-    SDL_Event event;
-    bool quit{false};
-    while (!quit) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_EVENT_QUIT ||
-                event.type == SDL_EVENT_TERMINATING) {
-                quit = true;
-            }
-        }
-        SDL_SetRenderDrawColor(mainRenderer, COLOR_RED, COLOR_GREEN, COLOR_BLUE,
-                               COLOR_ALPHA);
-        SDL_RenderClear(mainRenderer);
-        SDL_RenderPresent(mainRenderer);
+    return SDL_APP_CONTINUE;
+}
+
+// The "main loop" of the window.
+SDL_AppResult SDL_AppIterate(void *appState) {
+    AppState *state = static_cast<AppState *>(appState);
+    SDL_SetRenderDrawColor(state->mainRenderer, COLOR_RED, COLOR_GREEN,
+                           COLOR_BLUE, COLOR_ALPHA);
+    SDL_RenderClear(state->mainRenderer);
+    SDL_RenderPresent(state->mainRenderer);
+    return state->appResult;
+}
+
+// Cleans up the initialised subsystems.
+void SDL_AppQuit(void *appState, SDL_AppResult result) {
+    AppState *state = static_cast<AppState *>(appState);
+    if (state != nullptr) {
+        SDL_DestroyRenderer(state->mainRenderer);
+        SDL_DestroyWindow(state->mainWindow);
+        delete state;
     }
-    // SDL_DestroyTexture(mainTexture);
-    SDL_DestroyRenderer(mainRenderer);
-    SDL_DestroyWindow(mainWindow);
-    SDL_Quit();
-    return 0;
 }
