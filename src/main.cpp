@@ -22,27 +22,27 @@ SDL_AppResult SDL_Failure(const char *fmt) {
     return SDL_APP_FAILURE;
 }
 
-// Initialises subsystems and initialises appState to be used by all other main functions.
+// Initialises subsystems and initialises appState to be used by all other main
+// functions.
 SDL_AppResult SDL_AppInit(void **appState, int argc, char *argv[]) {
     AppState *state{new AppState{
-        .mainWindow = NULL,
+        .mainWindow = nullptr,
         .mainRenderer =
-            NULL}}; // This only is useful this way if we are initialising
-                    // subsystems using pointers, which isn't very common. We
-                    // can instead initialise the state after all subsystems are
-                    // initialised, but this depends on which subsystems we are
-                    // initialising.
+            nullptr}}; // This only is useful this way if we are initialising
+                       // subsystems using pointers, which isn't very common. We
+                       // can instead initialise the state after all subsystems
+                       // are initialised, but this depends on which subsystems
+                       // we are initialising.
     SDL_SetAppMetadata("GameEngine", "0.0.1",
                        "org.acm.pesuecc.aiep.game-engine");
-    bool init{SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)};
-    if (!init) {
+    if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) {
         return SDL_Failure("Error initialising SDL3");
     }
-    init = SDL_CreateWindowAndRenderer(
+    bool initWindowRenderer{SDL_CreateWindowAndRenderer(
         "GameEngine", SCREEN_WIDTH, SCREEN_HEIGHT,
         SDL_WINDOW_RESIZABLE | SDL_WINDOW_TRANSPARENT, &(state->mainWindow),
-        &(state->mainRenderer));
-    if (!init) {
+        &(state->mainRenderer))};
+    if (!initWindowRenderer) {
         return SDL_Failure("Error creating Window and Renderer");
     }
     *appState = state;
