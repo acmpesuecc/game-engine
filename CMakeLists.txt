@@ -13,6 +13,7 @@ target_sources(GameEngine
     PRIVATE
     src/main.cpp
 )
+target_compile_definitions(GameEngine PUBLIC SDL_MAIN_USE_CALLBACKS)
 target_link_libraries(GameEngine PRIVATE SDL3::SDL3)
 set_target_properties(GameEngine
     PROPERTIES
