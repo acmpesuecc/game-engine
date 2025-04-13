@@ -24,11 +24,10 @@ SDL_AppResult SDL_Failure(const char *fmt) {
 
 // Initialises subsystems and initialises appState to be used by all other main
 // functions.
-SDL_AppResult SDL_AppInit(void **appState, int argc, char *argv[]) {
-    AppState *state{new AppState{
-        .mainWindow = nullptr,
-        .mainRenderer =
-            nullptr}}; // This only is useful this way if we are initialising
+SDL_AppResult SDL_AppInit(void** appState, int argc, char* argv[]) {
+    AppState* state = new AppState();
+    state->mainWindow = nullptr;
+    state->mainRenderer = nullptr; // This only is useful this way if we are initialising
                        // subsystems using pointers, which isn't very common. We
                        // can instead initialise the state after all subsystems
                        // are initialised, but this depends on which subsystems
@@ -79,3 +78,4 @@ void SDL_AppQuit(void *appState, SDL_AppResult result) {
         delete state;
     }
 }
+
