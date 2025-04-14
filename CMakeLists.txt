@@ -13,7 +13,12 @@ target_sources(GameEngine
     PRIVATE
     src/main.cpp
 )
+target_compile_features(GameEngine PUBLIC cxx_std_17)
 target_compile_definitions(GameEngine PUBLIC SDL_MAIN_USE_CALLBACKS)
+target_compile_options(GameEngine PUBLIC
+  $<$<CXX_COMPILER_ID:MSVC>:/W4>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Wno-unused-parameter>
+)
 target_link_libraries(GameEngine PRIVATE SDL3::SDL3)
 set_target_properties(GameEngine
     PROPERTIES
