@@ -24,11 +24,10 @@ SDL_AppResult SDL_Failure(const char *fmt) {
 
 // Initialises subsystems and initialises appState to be used by all other main
 // functions.
-SDL_AppResult SDL_AppInit(void **appState, int argc, char *argv[]) {
-    AppState *state{new AppState{
-        .mainWindow = nullptr,
-        .mainRenderer =
-            nullptr}}; // This only is useful this way if we are initialising
+SDL_AppResult SDL_AppInit(void** appState, int argc, char* argv[]) {
+    AppState* state = new AppState();
+    state->mainWindow = nullptr;
+    state->mainRenderer = nullptr; // This only is useful this way if we are initialising
                        // subsystems using pointers, which isn't very common. We
                        // can instead initialise the state after all subsystems
                        // are initialised, but this depends on which subsystems
@@ -57,6 +56,34 @@ SDL_AppResult SDL_AppEvent(void *appState, SDL_Event *event) {
     if (event->type == SDL_EVENT_QUIT || event->type == SDL_EVENT_TERMINATING) {
         state->appResult = SDL_APP_SUCCESS;
     }
+    else if (event->type == SDL_EVENT_WINDOW_RESIZED) {
+        SDL_Log("Window resized to %d x %d", event->window.data1,
+            event->window.data2);
+    }
+    else if (event->type == SDL_EVENT_KEY_DOWN) {
+        SDL_Log("Key pressed: %c", event->key.key);
+    }
+    else if (event->type == SDL_EVENT_KEY_UP) {
+        SDL_Log("Key was released: %c", event->key.key);
+    }
+    else if (event->type == SDL_EVENT_KEY_DOWN) {  
+        SDL_Log("Key pressed: %c", event->key.key);  
+    }  
+    else if (event->type == SDL_EVENT_KEY_UP) {  
+        SDL_Log("Key was released: %c", event->key.key);  
+    }
+    else if (event->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+        SDL_Log("Mouse button pressed");
+    }
+    else if (event->type == SDL_EVENT_MOUSE_WHEEL) {
+        SDL_Log("Mouse wheel scrolled: %.0f", event->wheel.y);
+    }
+    else if (event->type == SDL_EVENT_MOUSE_BUTTON_UP) {
+        SDL_Log("Mouse button released");
+    }
+    else if (event->type == SDL_EVENT_MOUSE_MOTION) {
+        SDL_Log("Mouse moved to: (%.0f, %.0f)", event->motion.x, event->motion.y);
+    }    
     return SDL_APP_CONTINUE;
 }
 
@@ -79,3 +106,4 @@ void SDL_AppQuit(void *appState, SDL_AppResult result) {
         delete state;
     }
 }
+
