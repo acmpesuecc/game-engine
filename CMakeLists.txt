@@ -7,10 +7,11 @@ project(GameEngine
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+file(GLOB_RECURSE source src/*.cpp)
 add_executable(GameEngine)
 target_sources(GameEngine
     PRIVATE
-    src/main.cpp
+    ${source}
 )
 
 include(include/vendored/vendored.cmake)
@@ -22,12 +23,13 @@ target_compile_definitions(GameEngine
                            PUBLIC IMGUI_DEFINE_MATH_OPERATORS=
                            PUBLIC IMGUI_IMPL_API=
 )
+
 target_compile_options(GameEngine
     PUBLIC
     $<$<CXX_COMPILER_ID:MSVC>:/W4>
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Wno-unused-parameter>
 )
-
+target_include_directories(GameEngine PRIVATE include)
 target_link_libraries(GameEngine
     PRIVATE
     SDL3::SDL3
