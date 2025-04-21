@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\vk360\Desktop\College\AIEP2025\SDL3-3.2.10\GameEngineClone\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\vk360\Desktop\College\AIEP2025\SDL3-3.2.10\GameEngineClone\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{082E16D0-6B6D-35A2-B95D-0A85A2C6E5AE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
