@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16...4.0)
+cmake_minimum_required(VERSION 3.28...4.0)
 project(GameEngine
     VERSION 0.0.1
     DESCRIPTION "2D Game Engine built during AIEP 2025"
