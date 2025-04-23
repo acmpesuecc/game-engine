@@ -38,3 +38,4 @@ target_include_directories(imgui_sdl3 PUBLIC
     ${CMAKE_SOURCE_DIR}/include/vendored/imgui
     ${CMAKE_SOURCE_DIR}/include/vendored/imgui/backends
 )
+target_link_libraries(imgui_sdl3 PRIVATE SDL3::SDL3)
