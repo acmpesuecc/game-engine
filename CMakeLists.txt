@@ -28,7 +28,6 @@ target_compile_options(GameEngine
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic -Wno-unused-parameter>
 )
 
-add_dependencies(GameEngine imgui_sdl3)
 target_link_libraries(GameEngine
     PRIVATE
     SDL3::SDL3
