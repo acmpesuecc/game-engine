@@ -45,7 +45,8 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 /bin*
-
+include/vendored/*
+!include/vendored/vendored.cmake
 ### CMake Patch ###
 CMakeUserPresets.json
 
