@@ -1,5 +1,7 @@
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
+#include <SDL3/SDL_rect.h>
+#include <SDL3/SDL_render.h>
 
 const int SCREEN_WIDTH = 1000;
 const int SCREEN_HEIGHT = 800;
@@ -84,9 +86,23 @@ SDL_AppResult SDL_AppEvent(void *appState, SDL_Event *event) {
 // The "main loop" of the window.
 SDL_AppResult SDL_AppIterate(void *appState) {
     AppState *state = static_cast<AppState *>(appState);
+
+	//Rendering the window
+	SDL_SetRenderViewport(state->mainRenderer, NULL);
     SDL_SetRenderDrawColor(state->mainRenderer, COLOR_RED, COLOR_GREEN,
                            COLOR_BLUE, COLOR_ALPHA);
     SDL_RenderClear(state->mainRenderer);
+
+    //Top left corner viewport
+    SDL_Rect topLeftViewport;
+    topLeftViewport.x = 0;
+    topLeftViewport.y = 0;
+    topLeftViewport.w = SCREEN_WIDTH / 2;
+    topLeftViewport.h = SCREEN_HEIGHT / 2;
+
+    SDL_SetRenderViewport(state->mainRenderer, &topLeftViewport);
+    SDL_SetRenderDrawColor(state->mainRenderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(state->mainRenderer, NULL);
 
     SDL_RenderPresent(state->mainRenderer);
     return state->appResult;
