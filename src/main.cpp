@@ -60,12 +60,6 @@ SDL_AppResult SDL_AppEvent(void *appState, SDL_Event *event) {
         SDL_Log("Window resized to %d x %d", event->window.data1,
             event->window.data2);
     }
-    else if (event->type == SDL_EVENT_KEY_DOWN) {
-        SDL_Log("Key pressed: %c", event->key.key);
-    }
-    else if (event->type == SDL_EVENT_KEY_UP) {
-        SDL_Log("Key was released: %c", event->key.key);
-    }
     else if (event->type == SDL_EVENT_KEY_DOWN) {  
         SDL_Log("Key pressed: %c", event->key.key);  
     }  
@@ -93,6 +87,7 @@ SDL_AppResult SDL_AppIterate(void *appState) {
     SDL_SetRenderDrawColor(state->mainRenderer, COLOR_RED, COLOR_GREEN,
                            COLOR_BLUE, COLOR_ALPHA);
     SDL_RenderClear(state->mainRenderer);
+
     SDL_RenderPresent(state->mainRenderer);
     return state->appResult;
 }
