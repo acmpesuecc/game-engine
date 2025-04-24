@@ -23,6 +23,7 @@ FetchContent_MakeAvailable(SDL3 SDL3_ttf)
 FetchContent_Populate(imgui
   URL https://github.com/ocornut/imgui/archive/master.zip
   SOURCE_DIR ${CMAKE_SOURCE_DIR}/include/vendored/imgui
+  BINARY_DIR ${CMAKE_SOURCE_DIR}/_deps/imgui-build
 )
 add_library(imgui_sdl3
     STATIC
@@ -39,3 +40,7 @@ target_include_directories(imgui_sdl3 PUBLIC
     ${CMAKE_SOURCE_DIR}/include/vendored/imgui/backends
 )
 target_link_libraries(imgui_sdl3 PRIVATE SDL3::SDL3)
+set_target_properties(imgui_sdl3
+    PROPERTIES
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/_deps/imgui-build
+)

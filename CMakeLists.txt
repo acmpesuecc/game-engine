@@ -38,5 +38,4 @@ target_link_libraries(GameEngine
 set_target_properties(GameEngine
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
-    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )
