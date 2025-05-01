@@ -20,7 +20,7 @@ struct AppState {
     SDL_Texture* tile_map_texture;
     int windowWidth = SCREEN_WIDTH;
     int windowHeight = SCREEN_HEIGHT;
-	int tilemap[20][15] = { 0 };
+	int tilemap[100][100] = { 0 };
 	bool tilemapInitialised = false; // Just to check if the tilemap has been initialised 
     // Textures and other subsystems can be added at a later stage
     SDL_AppResult appResult = SDL_APP_CONTINUE;
@@ -72,10 +72,10 @@ SDL_AppResult SDL_AppInit(void** appState, int argc, char* argv[]) {
 void RenderCanvas(AppState* state) { // So everything that has to do with the canvas; the tilemap,
                                      //  the sprites, etc. are to be included under this function
     // Rendering the Top left corner viewport 
-    state->Canvas.x = 200;
+    state->Canvas.x = 300;
     state->Canvas.y = 0;
-    state->Canvas.w = state->windowWidth / 1.5625;
-    state->Canvas.h = state->windowHeight / 1.6667;
+    state->Canvas.w = state->windowWidth * 0.6;
+	state->Canvas.h = state->windowHeight * 0.75;
 
     // Rendering the "partially" top left viewport 
     SDL_SetRenderViewport(state->mainRenderer, &(state->Canvas));
@@ -84,8 +84,8 @@ void RenderCanvas(AppState* state) { // So everything that has to do with the ca
 
 	// Rendering the tilemap
     if (!state->tilemapInitialised) {
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 15; j++) {
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
                 state->tilemap[i][j] = rand() % 4 + 1;
             }
         }
@@ -93,9 +93,9 @@ void RenderCanvas(AppState* state) { // So everything that has to do with the ca
     }
 
     //Populating the screen with tiles
-    SDL_FRect tile[20][15];
-    for (int i = 0; i < 20; i++) {
-        for (int j = 0; j < 15; j++) {
+    SDL_FRect tile[100][100];
+    for (int i = 0; i < 100; i++) {
+        for (int j = 0; j < 100; j++) {
             tile[i][j].x = i * 32;
             tile[i][j].y = j * 32;
             tile[i][j].w = 32;
@@ -126,8 +126,8 @@ void RenderCanvas(AppState* state) { // So everything that has to do with the ca
 	select_tile_4.h = 32;
 
 	// Rendering the tilemap
-	for (int i = 0; i < 20; i++) {
-		for (int j = 0; j < 15; j++) {
+	for (int i = 0; i < 100; i++) {
+		for (int j = 0; j < 100; j++) {
 			if (state->tilemap[i][j] == 1) {
 				SDL_RenderTexture(state->mainRenderer, state->tile_map_texture, &select_tile_1, &tile[i][j]);
 			}
