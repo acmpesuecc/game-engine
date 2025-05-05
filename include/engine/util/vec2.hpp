@@ -4,7 +4,7 @@
 namespace Engine {
 class Vector2 {
   public:
-    float x= 0.0f;
+    float x = 0.0f;
     float y = 0.0f;
 
     Vector2() = default;

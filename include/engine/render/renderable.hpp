@@ -1,12 +1,11 @@
 #ifndef _RENDERABLE_HPP
 #define _RENDERABLE_HPP
-#include <engine/util/rect.hpp>
 #include <SDL3/SDL_pixels.h>
 #include <SDL3/SDL_stdinc.h>
 #include <array>
 #include <engine/util/color.hpp>
-#include <engine/util/vec2.hpp>
 #include <engine/util/rect.hpp>
+#include <engine/util/vec2.hpp>
 #include <memory>
 #include <string>
 #include <string_view>
@@ -59,7 +58,7 @@ class Renderable {
     bool IsVisible() const { return m_visible; }
 
   protected:
-    Vector2 m_position= Vector2(0.0f, 0.0f);
+    Vector2 m_position = Vector2(0.0f, 0.0f);
     float m_rotation = 0.0f;
     Vector2 m_scale = Vector2(1.0f, 1.0f);
     Vector2 m_pivot = Vector2(0.5f, 0.5f);
@@ -92,8 +91,7 @@ class Sprite : public Renderable {
 
 class RectangleShape : public Renderable {
   public:
-    RectangleShape(Rect rect, Color color,
-                   bool filled = true);
+    RectangleShape(Rect rect, Color color, bool filled = true);
 
     void Render(Renderer &renderer) override;
 

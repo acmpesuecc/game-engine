@@ -3,10 +3,12 @@ repos:
     hooks:
       - id: clang-format
         name: clang-format
-        entry: linter.sh
+        entry: linter.sh clangformat
         language: script
+        verbose: true
 
       - id: clang-tidy
         name: clang-tidy
         entry: linter.sh clangtidy
         language: script
+        verbose: true
