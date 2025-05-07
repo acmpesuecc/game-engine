@@ -14,8 +14,8 @@ const int COLOR_BLUE = 0;
 const int COLOR_ALPHA = 128;
 
 struct AppState {
-    SDL_Window* mainWindow;
-    SDL_Renderer* mainRenderer;
+    SDL_Window *mainWindow;
+    SDL_Renderer *mainRenderer;
     SDL_Rect Canvas = { 0,0,0,0 };
     SDL_Surface* tile_map;
     SDL_Texture* tile_map_texture;
@@ -32,7 +32,7 @@ struct AppState {
 
 // A simple helper function that logs that a critical failure happens and
 // returns an app failure.
-SDL_AppResult SDL_Failure(const char* fmt) {
+SDL_AppResult SDL_Failure(const char *fmt) {
     SDL_LogCritical(SDL_LOG_CATEGORY_ERROR, "%s: %s\n", fmt, SDL_GetError());
     return SDL_APP_FAILURE;
 }
@@ -43,18 +43,22 @@ SDL_AppResult SDL_AppInit(void** appState, int argc, char* argv[]) {
     srand((unsigned int)time(NULL)); 
     AppState* state = new AppState();
     state->mainWindow = nullptr;
-    state->mainRenderer = nullptr;
+    state->mainRenderer = nullptr; // This only is useful this way if we are initialising
+                                   // subsystems using pointers, which isn't very common. We
+                                   // can instead initialise the state after all subsystems
+                                   // are initialised, but this depends on which subsystems
+                                   // we are initialising.
     state->tile_map = nullptr;
     state->tile_map_texture = nullptr;
     SDL_SetAppMetadata("GameEngine", "0.0.1",
         "org.acm.pesuecc.aiep.game-engine");
     if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS)) {
-        return SDL_Failure("Error initializing SDL3");
+        return SDL_Failure("Error initialising SDL3");
     }
-    bool initWindowRenderer{ SDL_CreateWindowAndRenderer(
+    bool initWindowRenderer{SDL_CreateWindowAndRenderer(
         "GameEngine", SCREEN_WIDTH, SCREEN_HEIGHT,
         SDL_WINDOW_RESIZABLE | SDL_WINDOW_TRANSPARENT, &(state->mainWindow),
-        &(state->mainRenderer)) };
+        &(state->mainRenderer))};
     if (!initWindowRenderer) {
         return SDL_Failure("Error creating Window and Renderer");
     }
@@ -76,8 +80,8 @@ SDL_AppResult SDL_AppInit(void** appState, int argc, char* argv[]) {
 // The event handling function called by SDL.
 // TODO: Try and make a genericsed function that is called from here to allow
 //       custom event handling to be added by a user.
-SDL_AppResult SDL_AppEvent(void* appState, SDL_Event* event) {
-    AppState* state = static_cast<AppState*>(appState);
+SDL_AppResult SDL_AppEvent(void *appState, SDL_Event *event) {
+    AppState *state = static_cast<AppState *>(appState);
     if (event->type == SDL_EVENT_QUIT || event->type == SDL_EVENT_TERMINATING) {
         state->appResult = SDL_APP_SUCCESS;
     }
@@ -185,8 +189,8 @@ static void RenderCanvas(AppState* state) { // So everything that has to do with
 }
 
 // The "main loop" of the window.
-SDL_AppResult SDL_AppIterate(void* appState) {
-    AppState* state = static_cast<AppState*>(appState);
+SDL_AppResult SDL_AppIterate(void *appState) {
+    AppState* state = static_cast<AppState *>(appState);
 
     //Handling keyboard inputs
     const bool* keys = SDL_GetKeyboardState(NULL);
@@ -242,8 +246,8 @@ SDL_AppResult SDL_AppIterate(void* appState) {
 }
 
 // Cleans up the initialised subsystems.
-void SDL_AppQuit(void* appState, SDL_AppResult result) {
-    AppState* state = static_cast<AppState*>(appState);
+void SDL_AppQuit(void *appState, SDL_AppResult result) {
+    AppState* state = static_cast<AppState *>(appState);
     if (state != nullptr) {
         SDL_DestroyTexture(state->tile_map_texture);
 		SDL_DestroySurface(state->tile_map);
