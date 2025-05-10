@@ -19,7 +19,15 @@ FetchContent_Declare(
     SOURCE_DIR ${CMAKE_SOURCE_DIR}/include/vendored/SDL3_ttf
     EXCLUDE_FROM_ALL
 )
-FetchContent_MakeAvailable(SDL3 SDL3_ttf)
+FetchContent_Declare(
+    spdlog
+    GIT_REPOSITORY https://github.com/gabime/spdlog.git
+    GIT_TAG v1.15.2
+    SOURCE_DIR ${CMAKE_SOURCE_DIR}/include/vendored/spdlog
+    EXCLUDE_FROM_ALL
+)
+FetchContent_MakeAvailable(SDL3 SDL3_ttf spdlog)
+
 FetchContent_Populate(imgui
   URL https://github.com/ocornut/imgui/archive/master.zip
   SOURCE_DIR ${CMAKE_SOURCE_DIR}/include/vendored/imgui

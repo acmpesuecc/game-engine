@@ -35,6 +35,7 @@ target_link_libraries(GameEngine
     SDL3::SDL3
     SDL3_ttf::SDL3_ttf
     imgui_sdl3
+    spdlog
 )
 
 set_target_properties(GameEngine
