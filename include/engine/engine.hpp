@@ -1,5 +1,6 @@
 #ifndef _ENGINE_HPP
 #define _ENGINE_HPP
+#include <engine/core/resource.hpp>
 #include <engine/core/event.hpp>
 #include <engine/core/renderer.hpp>
 #include <engine/core/window.hpp>
@@ -28,7 +29,7 @@ class Engine {
     RenderManager &GetRenderManager();
     // InputHandler &GetInputs();
     // AudioSystem &GetAudio();
-    // ResourceManager &GetResources();
+    ResourceManager &GetResources();
     // Time &GetTime();
   private:
     Engine() = default;
@@ -41,12 +42,12 @@ class Engine {
     std::unique_ptr<Renderer> m_renderer;
     std::unique_ptr<EventManager> m_eventHandler;
     std::unique_ptr<RenderManager> m_renderManager;
+    std::unique_ptr<ResourceManager> m_resManager;
     // from main.cpp here as well
 
     // TODO: Later implementation
     // std::unique_ptr<InputHandler> m_inputHandler;
     // std::unique_ptr<AudioSystem> m_audioSystem;
-    // std::unique_ptr<ResourceManager> m_resManager;
     // std::unique_ptr<Time> m_time;
 
     bool m_initialized = false;
