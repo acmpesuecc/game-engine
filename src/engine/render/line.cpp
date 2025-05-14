@@ -42,6 +42,7 @@ Vector2 Line::GetAbsoluteEndPoint() {
     float scaledEndY = m_relativeEndPoint.y * m_scale.y;
 
     return Vector2(m_position.x + scaledEndX * cosTheta - scaledEndY * sinTheta,
-            m_position.y + scaledEndX * sinTheta + scaledEndY * cosTheta);
+                   m_position.y + scaledEndX * sinTheta +
+                       scaledEndY * cosTheta);
 }
 } // namespace Engine

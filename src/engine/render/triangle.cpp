@@ -3,8 +3,8 @@
 #include <engine/render/renderable.hpp>
 
 namespace Engine {
-TriangleShape::TriangleShape(Vector2 pos1, Vector2 pos2, Vector2 pos3, Color color,
-              bool filled) {
+TriangleShape::TriangleShape(Vector2 pos1, Vector2 pos2, Vector2 pos3,
+                             Color color, bool filled) {
     m_filled = filled;
     SetVertices(pos1, pos2, pos3);
     SetColor(color);
