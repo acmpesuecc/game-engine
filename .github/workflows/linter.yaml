@@ -1,0 +1,26 @@
+name: Formatting and Linting
+on:
+  push:
+  pull_request:
+
+jobs:
+  formatting_and_linting:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Setup clang-format and clang-tidy
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 19
+          sudo apt install -y clang-format-19 clang-tidy-19
+          sudo mv /usr/bin/clang-format-19 /usr/bin/clang-format
+          sudo mv /usr/bin/clang-tidy-19 /usr/bin/clang-tidy
+      - name: Run clang-format
+        run: |
+          python3 ci/run-clang-format.py -r src include/engine/
+      - name: Run clang-tidy
+        run: |
+          chmod +x ci/linter.sh
+          ./ci/linter.sh clangtidy

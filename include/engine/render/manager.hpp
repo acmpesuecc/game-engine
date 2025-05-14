@@ -25,8 +25,7 @@ class RenderManager {
                        int layerId = Layers::WORLD);
     bool RemoveRenderable(std::string_view name);
     Renderable *GetRenderable(std::string_view name);
-    Renderable *GetRenderableInLayer(std::string_view name,
-                                                    int layerId);
+    Renderable *GetRenderableInLayer(std::string_view name, int layerId);
     std::vector<Renderable *> GetRenderablesInLayer(int layerId);
 
     Layer &GetLayer(int layerId);

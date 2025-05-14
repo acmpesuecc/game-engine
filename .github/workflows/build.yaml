@@ -1,0 +1,20 @@
+name: Build the project
+on:
+  push:
+  pull_request:
+
+jobs:
+  build_project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt install -y cmake libfreetype6-dev
+      - name: Build the project
+        run: |
+          mkdir build && cd build
+
+          cmake .. -DSDL_UNIX_CONSOLE_BUILD=ON
+          cmake --build .
