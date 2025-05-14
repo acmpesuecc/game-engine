@@ -89,7 +89,7 @@ bool EventManager::ProcessEvent(SDL_Event *event) {
 void EventManager::InvokeCallback(EventType type, const EventData &data) {
     auto it = m_eventBindings.find(type);
     if (it != m_eventBindings.end()) {
-        for (std::function<void(const EventData &)> callback : it->second) {
+        for (EventCallback callback : it->second) {
             callback(data);
         }
     }
