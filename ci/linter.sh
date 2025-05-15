@@ -1,7 +1,7 @@
 #!/bin/bash
 
 clangformat() {
-  python3 run-clang-format.py -r src/ include/engine
+  python3 ./ci/run-clang-format.py -r src/ include/engine
 
   find src/ include/engine/ -iname '*.h' -o -iname '*.cpp' -o -iname '*.hpp' | clang-format --style=file -i --files=/dev/stdin
 }
