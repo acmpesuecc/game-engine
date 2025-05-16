@@ -19,6 +19,7 @@ This is a Game Engine being built using C++, SDL3 and ImGUI.
 - [CMake](https://cmake.org/)
 - [SDL3](https://www.libsdl.org/download-3.0.php)
 - [ImGUI](https://github.com/ocornut/imgui)
+- [spdlog](https://github.com/gabime/spdlog)
 
 ## Building the project
 
