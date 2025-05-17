@@ -8,4 +8,9 @@ Texture::~Texture() {
         m_texture = nullptr;
     }
 }
+void Texture::SetTexture(SDL_Texture *texture) {
+    m_texture = texture;
+    m_width = m_texture->w;
+    m_height = m_texture->h;
+}
 } // namespace Engine

@@ -34,6 +34,7 @@ target_link_libraries(GameEngine
     PRIVATE
     SDL3::SDL3
     SDL3_ttf::SDL3_ttf
+    SDL3_image::SDL3_image
     imgui_sdl3
     spdlog
 )
