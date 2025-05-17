@@ -1,8 +1,8 @@
 #ifndef _ENGINE_HPP
 #define _ENGINE_HPP
-#include <engine/core/resource.hpp>
 #include <engine/core/event.hpp>
 #include <engine/core/renderer.hpp>
+#include <engine/core/resource.hpp>
 #include <engine/core/window.hpp>
 #include <engine/render/manager.hpp>
 #include <engine/render/renderable.hpp>
