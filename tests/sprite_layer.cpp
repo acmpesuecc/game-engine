@@ -73,16 +73,16 @@ SDL_AppResult SDL_AppInit(void **appState, int argc, char *argv[]) {
         std::make_unique<Engine::RectangleShape>(Engine::Rect(270, 10, 60, 80),
                                                  Engine::Color::Green());
     obj2->SetName("Green Rectangle");
-    std::unique_ptr<Engine::Renderable> rectangle3 =
+    std::unique_ptr<Engine::Renderable> obj3 =
         std::make_unique<Engine::RectangleShape>(Engine::Rect(10, 120, 60, 80),
                                                  Engine::Color::Red());
-    rectangle3->SetName("Red Rectangle");
+    obj3->SetName("Red Rectangle");
     std::shared_ptr<Engine::Texture> tex2 =
         res.FindTexture("tests/res/kenney-pixel-char2.png");
-    std::unique_ptr<Engine::Renderable> rectangle4 =
+    std::unique_ptr<Engine::Renderable> obj4 =
         std::make_unique<Engine::Sprite>(std::move(tex2),
                                          Engine::Vector2(300, 160));
-    rectangle4->SetName("Character 2");
+    obj4->SetName("Character 2");
 
     SPDLOG_INFO("Adding renderable objects to render manager.");
     rdrMgr.AddRenderable(std::move(obj1), Engine::Layers::WORLD);
