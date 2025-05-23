@@ -18,6 +18,9 @@ SDL_AppResult SDL_Failure(const char *fmt) {
 // Initialises subsystems and initialises appState to be used by all other main
 // functions.
 SDL_AppResult SDL_AppInit(void **appState, int argc, char *argv[]) {
+    SPDLOG_INFO("Initializing application.");
+    Engine::Logging::Init();
+
     Engine::Engine *gameEngine = &Engine::Engine::Instance();
     SDL_SetAppMetadata("GameEngine", "0.0.1",
                        "org.acm.pesuecc.aiep.game-engine");
