@@ -54,8 +54,13 @@ ResourceManager::FindTexture(const std::string_view path) {
 
 void ResourceManager::CreateTexture(const std::string_view path) {
     std::shared_ptr<Texture> texture = std::make_shared<Texture>();
-    texture->SetTexture(IMG_LoadTexture(m_renderer.GetSDLRenderer(),
-                                        std::string(path).c_str()));
+    SDL_Texture *sdlTex =
+        IMG_LoadTexture(m_renderer.GetSDLRenderer(), std::string(path).c_str());
+    if (sdlTex == nullptr) {
+        // TODO: add logging here
+        return;
+    }
+    texture->SetTexture(sdlTex);
     m_textureMap.emplace(path, std::move(texture));
 }
 

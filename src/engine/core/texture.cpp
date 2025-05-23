@@ -9,6 +9,10 @@ Texture::~Texture() {
     }
 }
 void Texture::SetTexture(SDL_Texture *texture) {
+    if (texture == nullptr) {
+        // TODO: add logging here
+        return;
+    }
     m_texture = texture;
     m_width = m_texture->w;
     m_height = m_texture->h;
