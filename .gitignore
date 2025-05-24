@@ -44,7 +44,8 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
-/bin*
+/[Bb]in*
+/[Bb]uild*
 include/vendored/*
 !include/vendored/vendored.cmake
 ### CMake Patch ###
@@ -66,6 +67,9 @@ CMakeUserPresets.json
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+### Zed ###
+.zed/
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
