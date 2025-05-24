@@ -6,9 +6,7 @@ class Texture {
   public:
     Texture() = default;
     ~Texture();
-    // bool LoadFromFile(Renderer &renderer, const std::string &path);
-    // |- Handled by ResourceManager
-    void SetTexture(SDL_Texture *texture) { m_texture = texture; }
+    void SetTexture(SDL_Texture *texture);
     SDL_Texture *GetSDLTexture() const { return m_texture; }
     int GetWidth() const { return m_width; }
     int GetHeight() const { return m_height; }
